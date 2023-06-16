@@ -17,3 +17,4 @@ chardet==4.0.0
 dask==2021.3.0
 fsspec>=0.3.3
 ray==2.3.1
+beautifulsoup4==4.12.2

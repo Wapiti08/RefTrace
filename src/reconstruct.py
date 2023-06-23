@@ -5,6 +5,7 @@
 @File        : reconstruct.py
 @Contact     : tzrzhuoran@gmail.com
 """
+
 import dask
 import asyncio
 import BeautifulSoup as bs4
@@ -33,6 +34,7 @@ class reconstructer:
 
         '''
         # get the html code
+
 
         # parse the html
         soup = bs4(html_code, 'html.parser')

@@ -28,17 +28,20 @@ class similar_score:
 
         com_eles = list(set(results[0]).intersection(results[1]))
         
-        return round(len(com_eles)/max(len(results[0]), len(results[1])),3)
+        return round(len(com_eles)/max(len(results[0]), len(results[1])),2)
 
 
     async def split_url(self, url):
         '''
             split single url with . and /
         '''
+    
         coms = []
         # split url by . and /
         url_coms = url.split(".")
         for com in url_coms:
             coms.extend(com.split("/"))
+        # filter out blank string
+        coms = [x for x in coms if x != '']
         return coms
 

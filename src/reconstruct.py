@@ -13,11 +13,15 @@ import networkx as nx
 import re
 
 class reconstructer:
-
+    ''' the redirect check is based on a given dataset, which means there is no
+    request and respone conversation performed in function implementation, you can
+    extend it as you want
+    
+    '''
     def __init__(self, graph: nx.DiGraph):
         self.graph = graph
 
-    async def redirect_status_code(self, url:str, dd: dask.dataframe):
+    async def _redirect_status_code(self, url:str, dd: dask.dataframe):
         ''' reconstruct redirected url for missing user initial request (single graph)
 
         '''
@@ -26,7 +30,7 @@ class reconstructer:
 
     
 
-    async def redirect_html(self, order_list: list, dd: dask.dataframe):
+    async def _redirect_html(self, order_list: list, dd: dask.dataframe):
         ''' apply on single graph based on html element for redirection check
 
         the main methodology for redirection:
@@ -44,7 +48,7 @@ class reconstructer:
             content 
 
 
-    async def redirect_js(self, order_list: list, dd: dask.dataframe):
+    async def _redirect_js(self, order_list: list, dd: dask.dataframe):
         ''' apply on single graph based on js element for redirection check
         
         all the potential methods for redirection in js code:

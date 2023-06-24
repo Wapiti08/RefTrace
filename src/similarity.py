@@ -12,7 +12,7 @@ class similar_score:
     def __init__(self):
         pass
 
-    async def url_similarity_score(self, url1, url2):
+    async def _url_similarity_score(self, url1, url2):
         ''' calculat the similarity score of two urls
 
         a = y(A, B) / max(b(A),b(B))
@@ -21,8 +21,8 @@ class similar_score:
 
         '''
         tasks = [
-            self.split_url(url1),
-            self.split_url(url2),
+            self._split_url(url1),
+            self._split_url(url2),
         ]
         results = await asyncio.gather(*tasks)
 
@@ -31,7 +31,7 @@ class similar_score:
         return round(len(com_eles)/max(len(results[0]), len(results[1])),2)
 
 
-    async def split_url(self, url):
+    async def _split_url(self, url):
         '''
             split single url with . and /
         '''

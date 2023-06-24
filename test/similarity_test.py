@@ -12,14 +12,14 @@ class TestClass(unittest.TestCase):
         sim_cal_ins = similar_score()
         url1 = "https://chat.openai.com/"
         url2 = "openai.com"
-        result = asyncio.run(sim_cal_ins.url_similarity_score(url1, url2))
+        result = asyncio.run(sim_cal_ins._url_similarity_score(url1, url2))
         expect_result = 0.5
         self.assertEqual(result, expect_result)
 
     def test_split_url(self,):
         sim_cal_ins = similar_score()
         url = "https://chat.openai.com/"
-        result = asyncio.run(sim_cal_ins.split_url(url))
+        result = asyncio.run(sim_cal_ins._split_url(url))
         expect_result = ["https:","chat","openai","com"]
         self.assertCountEqual(result, expect_result)
 

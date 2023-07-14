@@ -16,7 +16,8 @@ class constructer:
         G = nx.DiGraph()
         # every loop corresponds to one complete http request (one line of dataset)
         for ref_url, req_url in tqdm(zip(ref_url_list, req_url_list), desc="traversing refer values in http requests"):
-            if ref_url != "":
+            # the blank value can be nan or ""
+            if len(ref_url) != 0:
                 G.add_edge(ref_url, req_url)
             else:
                 G.add_node(req_url)

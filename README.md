@@ -6,6 +6,12 @@ the Implementation of HTTP-Based APT Malware Infection Detection Using URL Corre
 - uncover for APT malware traffic related to data exfiltration
 - uncover other suspect APT activities 
 
+## Testing Dataset:
+
+- [CTU-Mixed-Capture-5-bro(zeek)](https://mcfp.felk.cvut.cz/publicDatasets/CTU-Mixed-Capture-5/bro/http.log)
+
+- [CTU-Mixed-Capture-1-weblogng](https://mcfp.felk.cvut.cz/publicDatasets/CTU-Mixed-Capture-1/2015-07-28_mixed.weblogng)
+
 ## Features
 - distributed data processing
 - distributed computation

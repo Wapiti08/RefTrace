@@ -22,14 +22,14 @@ class propocesser:
         pass
 
 
-    def log_to_dataframe(log_file):
+    def log_to_dataframe(self, log_file):
         # create a pandas dataframe from a zeek log
         log_to_df = LogToDataFrame()
         log_df = log_to_df.create_dataframe(log_file, ts_index=False)
 
         return log_df
 
-    def log_to_matrix(log_dataframe):
+    def log_to_matrix(self, log_dataframe):
         '''
         :param log_dataframe: the log pandas dataframe object
         :return: the matrix converted from log dataframe
@@ -39,3 +39,6 @@ class propocesser:
         log_matrix = to_matrix.fit_transform(log_dataframe)
 
         return log_matrix
+
+    def build_request_url(self, host_part: str, uri_part:str):
+        return host_part + uri_part

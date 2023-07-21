@@ -21,13 +21,14 @@ class reconstructer:
     def __init__(self, graph: nx.DiGraph):
         self.graph = graph
 
-    async def _redirect_status_code(self, url:str, dd: dask.dataframe):
+    async def _redirect_status_code(self, url:str, dd: dask.dataframe, status_code_column = "status_code"):
         ''' reconstruct redirected url for missing user initial request (single graph)
 
         '''
-        # check the response code (301, 302, 303, 307)
         redirect_resp_code = [301, 302, 303, 307]
-
+        # extract all the rows with status_code in the list of directred code
+        redicted_requests_dd = dd[dd[status_code_column]].isin(redirect_resp_code)]
+        # 
     
 
     async def _redirect_html(self, order_list: list, dd: dask.dataframe):
@@ -77,4 +78,16 @@ class reconstructer:
                 break
             else:
                 print("there is no directed link found")
+
+    async def recons_on_direct(dir_edge:tuple, rep_edge:tuple):
+        ''' change A -> B, A -> C to A ->B -> C
+        
+        
+        '''
+        # create new edge
+        new_edge = tuple()
+        if dir_edge[0] == rep_edge[0]:
+            new_edge[0] = dir_edge[1]
+            new_edge[1] = rep_edge[1]
+            return new_edge 
         

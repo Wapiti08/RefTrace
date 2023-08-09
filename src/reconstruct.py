@@ -21,15 +21,30 @@ class reconstructer:
     def __init__(self, graph: nx.DiGraph):
         self.graph = graph
 
-    async def _redirect_status_code(self, url:str, dd: dask.dataframe, status_code_column = "status_code"):
+    async def _redirect_status_code(self, dd: dask.dataframe, status_code_column = "status_code"):
         ''' reconstruct redirected url for missing user initial request (single graph)
+            assume the subsequent request is the redirected request 
+        :param dd: structured dataframe with columns of host, uri, referrer, status_code ...
 
         '''
+        recon_edges = []
         redirect_resp_code = [301, 302, 303, 307]
         # extract all the rows with status_code in the list of directred code
-        redicted_requests_dd = dd[dd[status_code_column]].isin(redirect_resp_code)]
-        # 
-    
+        redirected_requests_indexes = dd[dd[status_code_column].isin(redirect_resp_code)].index
+        # build the node
+        for index in redirected_requests_indexes:
+            dir_req = dd.iloc[index,:]
+            dir_req_dst = dir_req['host'] + dir_req['uri']
+            dir_req_src = dir_req['referrer']
+            sub_dir_req = dd.iloc[index+1,:]
+            sub_dir_req_dst = sub_dir_req['host'] + sub_dir_req['uri']
+            sub_dir_req_src = sub_dir_req['referrer']
+        
+            recon_edges.append(asyncio.run(self.recons_on_direct((dir_req_src, dir_req_dst), \
+                                              (sub_dir_req_src, sub_dir_req_dst))))
+        
+        return recon_edges
+
 
     async def _redirect_html(self, order_list: list, dd: dask.dataframe):
         ''' apply on single graph based on html element for redirection check
@@ -81,7 +96,8 @@ class reconstructer:
 
     async def recons_on_direct(dir_edge:tuple, rep_edge:tuple):
         ''' change A -> B, A -> C to A ->B -> C
-        
+        A is the referrer value
+        B is the destination value
         
         '''
         # create new edge

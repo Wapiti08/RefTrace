@@ -14,11 +14,14 @@ the Implementation of HTTP-Based APT Malware Infection Detection Using URL Corre
         First packet after infection (not necessary an infected packet) 1970-01-01 02:22:39.378395 IP 10.0.2.200.61691 > 8.8.8.8.53: 23144+ A? clients2.google.com. (37)
 
 
-
 ## Features
 - distributed data processing
 - distributed computation
 - asynchronous processing to improve execution efficiency
+
+## Doing
+- redirection reconstruction
+
 
 ## Structure
 - src
